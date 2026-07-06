@@ -1,0 +1,13 @@
+[
+    {
+         "eventTitle" : "Test Event",
+         "description" : "This is a test event for demonstration purposes.",
+         "category" : "Sports",
+         "city" : "Kyiv",
+         "venue" : "Test avnue 1",
+         "price" : "100",
+         "totalSeats" : "1500",
+         "imageUrl" : "https://media.tenor.com/vvVehmVtZlYAAAAe/chill-dog-chill.png",
+         "eventDateTime" : "2027-07-03T11:00"
+    }
+]
