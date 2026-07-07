@@ -12,7 +12,7 @@ class DashBoardPage {
     }
 
     async gotoDashboard() {
-        await this.page.goto("https://eventhub.rahulshettyacademy.com");
+        await this.page.goto("/");
     }
 
     async getLocalStorageToken()

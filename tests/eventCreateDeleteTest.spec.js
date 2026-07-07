@@ -1,5 +1,5 @@
-import { test, expect, request } from '@playwright/test';
-const { PO_Manager } = require("../page_objects/PO_Manager");
+import { request } from '@playwright/test';
+import { test, expect } from '../fixtures/fixtures';
 const { APiUtils } = require('../utils/APiUtils');
 
 const dataset = JSON.parse(JSON.stringify(require("../test_data/userTestData.json")));
@@ -16,13 +16,12 @@ for (const data of dataset) {
         })
 
 
-        test('@Events_Managment - Create new event', async ({ page }) => {
+        test('@Events_Managment - Create new event', async ({ poManager}) => {
 
-            await page.addInitScript(value => {
+            await poManager.page.addInitScript(value => {
                 window.localStorage.setItem('eventhub_token', value);
             }, token);
 
-            const poManager = new PO_Manager(page);
             const manageEventsPage = poManager.getManageEventsPage();
             await manageEventsPage.gotoManageEvents();
 
@@ -43,13 +42,12 @@ for (const data of dataset) {
             }
         });
 
-        test('@Events_Managment - Delete event', async ({ page }) => {
+        test('@Events_Managment - Delete event', async ({ poManager}) => {
 
-            await page.addInitScript(value => {
+            await poManager.page.addInitScript(value => {
                 window.localStorage.setItem('eventhub_token', value);
             }, token);
 
-            const poManager = new PO_Manager(page);
             const manageEventsPage = poManager.getManageEventsPage();
             await manageEventsPage.gotoManageEvents();
             for (let data of createEventDataset) {

@@ -1,5 +1,4 @@
-import { test, expect } from '@playwright/test';
-const { PO_Manager } = require("../page_objects/PO_Manager");
+import { test, expect } from '../fixtures/fixtures';
 
 const dataset = JSON.parse(JSON.stringify(require("../test_data/userTestData.json")));
 
@@ -8,8 +7,7 @@ const BASE_URL = "https://eventhub.rahulshettyacademy.com";
 for (const data of dataset) {
     test.describe("Authentication", () => {
 
-        test('@Login - Happy Path', async ({ page }) => {
-            const poManager = new PO_Manager(page);
+        test('@Login - Happy Path', async ({ poManager }) => {
             const loginPage = poManager.getLoginPage();
             await loginPage.gotoLogin();
             await loginPage.validLogin(data.username, data.password);
@@ -24,8 +22,7 @@ for (const data of dataset) {
             await expect(myBookingsPage.myBookingsHeader).toBeVisible();
         });
 
-        test('@Login - Invalid Password', async ({ page }) => {
-            const poManager = new PO_Manager(page);
+        test('@Login - Invalid Password', async ({ poManager }) => {
             const loginPage = poManager.getLoginPage();
             await loginPage.gotoLogin();
             await loginPage.validLogin(data.username, data.password + "123");
@@ -34,8 +31,7 @@ for (const data of dataset) {
             await expect(localStorageToken).toBeNull();
         });
 
-        test('@Login - Invalid Email', async ({ page }) => {
-            const poManager = new PO_Manager(page);
+        test('@Login - Invalid Email', async ({ poManager }) => {
             const loginPage = poManager.getLoginPage();
             await loginPage.gotoLogin();
             await loginPage.validLogin("123", data.password);

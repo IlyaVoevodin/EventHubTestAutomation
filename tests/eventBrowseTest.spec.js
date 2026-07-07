@@ -1,5 +1,5 @@
-import { test, expect, request } from '@playwright/test';
-const { PO_Manager } = require("../page_objects/PO_Manager");
+import { request } from '@playwright/test';
+import { test, expect } from '../fixtures/fixtures';
 const { APiUtils } = require('../utils/APiUtils');
 
 const dataset = JSON.parse(JSON.stringify(require("../test_data/userTestData.json")));
@@ -16,13 +16,12 @@ for (const data of dataset) {
         })
 
 
-        test('@Events_Browse - View Upcoming Events', async ({ page }) => {
+        test('@Events_Browse - View Upcoming Events', async ({ poManager }) => {
 
-            await page.addInitScript(value => {
+            await poManager.page.addInitScript(value => {
                 window.localStorage.setItem('eventhub_token', value);
             }, token);
 
-            const poManager = new PO_Manager(page);
             const dashBoardPage = poManager.getDashBoardPage();
             await dashBoardPage.gotoDashboard();
 
@@ -42,13 +41,12 @@ for (const data of dataset) {
 
         });
 
-        test('@Events_Browse - Search and Filter Events', async ({ page }) => {
+        test('@Events_Browse - Search and Filter Events', async ({ poManager }) => {
 
-            await page.addInitScript(value => {
+            await poManager.page.addInitScript(value => {
                 window.localStorage.setItem('eventhub_token', value);
             }, token);
 
-            const poManager = new PO_Manager(page);
             const eventsPage = poManager.getEventsPage();
             await eventsPage.gotoEventsPage();
             for (let searchData of searchDataset) {
