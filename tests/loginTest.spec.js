@@ -1,6 +1,6 @@
 import { test, expect } from '../fixtures/fixtures';
 
-const dataset = JSON.parse(JSON.stringify(require("../test_data/userTestData.json")));
+const dataset = JSON.parse(JSON.stringify(require("../test_data/userLoginTestData.json")));
 
 const BASE_URL = "https://eventhub.rahulshettyacademy.com";
 

@@ -2,7 +2,7 @@ import { request } from '@playwright/test';
 import { test, expect } from '../fixtures/fixtures';
 const { APiUtils } = require('../utils/APiUtils');
 
-const dataset = JSON.parse(JSON.stringify(require("../test_data/userTestData.json")));
+const dataset = JSON.parse(JSON.stringify(require("../test_data/userLoginTestData.json")));
 const searchDataset = JSON.parse(JSON.stringify(require("../test_data/eventSearchTestData.json")));
 
 for (const data of dataset) {
