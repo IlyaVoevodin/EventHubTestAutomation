@@ -1,0 +1,13 @@
+[
+    {
+        "title": "Test API event",
+        "description": "Description.",
+        "category": "Conference",
+        "venue": "123 avenue",
+        "city": "Kyiv",
+        "eventDate": "2026-06-15T09:00:00.000Z",
+        "price": 150,
+        "totalSeats": 500,
+        "imageUrl": "https://example.com/banner.jpg"
+    }
+]
