@@ -8,20 +8,20 @@ const searchDataset = JSON.parse(JSON.stringify(require("../test_data/eventSearc
 for (const data of dataset) {
     test.describe("Event Browsing", () => {
         let token;
+        let apiUtils;
+
         test.beforeAll(async () => {
             const apiContext = await request.newContext();
             const loginPayLoad = { email: data.username, password: data.password };
-            const apiUtils = new APiUtils(apiContext, loginPayLoad);
+            apiUtils = new APiUtils(apiContext, loginPayLoad);
             token = await apiUtils.getToken();
-        })
+        });
 
+        test.beforeEach(async ({ poManager }) => {
+            await apiUtils.setAuthToken(poManager.page);
+        });
 
         test('@Events_Browse - View Upcoming Events', async ({ poManager }) => {
-
-            await poManager.page.addInitScript(value => {
-                window.localStorage.setItem('eventhub_token', value);
-            }, token);
-
             const dashBoardPage = poManager.getDashBoardPage();
             await dashBoardPage.gotoDashboard();
 
@@ -42,11 +42,6 @@ for (const data of dataset) {
         });
 
         test('@Events_Browse - Search and Filter Events', async ({ poManager }) => {
-
-            await poManager.page.addInitScript(value => {
-                window.localStorage.setItem('eventhub_token', value);
-            }, token);
-
             const eventsPage = poManager.getEventsPage();
             await eventsPage.gotoEventsPage();
             for (let searchData of searchDataset) {

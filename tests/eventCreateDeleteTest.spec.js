@@ -8,20 +8,20 @@ const createEventDataset = JSON.parse(JSON.stringify(require("../test_data/creat
 for (const data of dataset) {
     test.describe.serial("Event management", () => {
         let token;
+        let apiUtils;
+
         test.beforeAll(async () => {
             const apiContext = await request.newContext();
             const loginPayLoad = { email: data.username, password: data.password };
-            const apiUtils = new APiUtils(apiContext, loginPayLoad);
+            apiUtils = new APiUtils(apiContext, loginPayLoad);
             token = await apiUtils.getToken();
-        })
+        });
 
+        test.beforeEach(async ({ poManager }) => {
+            await apiUtils.setAuthToken(poManager.page);
+        });
 
         test('@Events_Managment - Create new event', async ({ poManager}) => {
-
-            await poManager.page.addInitScript(value => {
-                window.localStorage.setItem('eventhub_token', value);
-            }, token);
-
             const manageEventsPage = poManager.getManageEventsPage();
             await manageEventsPage.gotoManageEvents();
 
@@ -43,11 +43,6 @@ for (const data of dataset) {
         });
 
         test('@Events_Managment - Delete event', async ({ poManager}) => {
-
-            await poManager.page.addInitScript(value => {
-                window.localStorage.setItem('eventhub_token', value);
-            }, token);
-
             const manageEventsPage = poManager.getManageEventsPage();
             await manageEventsPage.gotoManageEvents();
             for (let data of createEventDataset) {
